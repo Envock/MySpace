@@ -1,0 +1,128 @@
+:root{
+  --bg:#f5f4f0; --card:#ffffff; --border:#e2e0d8; --border-strong:#cfccc0;
+  --text:#1f1e1b; --text-2:#6b685f; --text-3:#9c988c;
+  --accent:#1d9e75; --accent-bg:#e1f5ee; --accent-text:#085041;
+  --warn:#ba7517; --warn-bg:#faeeda; --danger:#d85a30; --danger-bg:#faece7;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#171613; --card:#211f1c; --border:#35332d; --border-strong:#454338;
+    --text:#f1efe8; --text-2:#b4b2a9; --text-3:#7a786f;
+    --accent:#5dcaa5; --accent-bg:#0f6e56; --accent-text:#9fe1cb;
+    --warn:#ef9f27; --warn-bg:#633806; --danger:#f0997b; --danger-bg:#4a1b0c;
+  }
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);
+  padding:20px 14px calc(76px + env(safe-area-inset-bottom));}
+.wrap{max-width:640px;margin:0 auto;}
+
+/* ---------- topo / cabeçalho de tela ---------- */
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+h1{font-size:20px;font-weight:600;margin:0 0 2px;}
+.sub{color:var(--text-2);font-size:14px;margin:0 0 18px;}
+.head-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.icon-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--border-strong);background:var(--card);
+  color:var(--accent);font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.icon-btn:active{background:var(--border);}
+
+.sync{font-size:11px;padding:5px 10px;border-radius:20px;white-space:nowrap;background:var(--accent-bg);color:var(--accent-text);}
+.sync.saving{background:var(--warn-bg);color:var(--warn);}
+.sync.err{background:var(--warn-bg);color:var(--warn);}
+
+/* ---------- hábitos ---------- */
+.progress-row{display:flex;gap:8px;margin-bottom:18px;}
+.stat{flex:1;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 10px;text-align:center;}
+.stat .n{font-size:20px;font-weight:600;line-height:1.1;}
+.stat .l{font-size:11px;color:var(--text-2);margin-top:2px;}
+.daynav{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:10px 8px;margin-bottom:14px;}
+.daynav button{background:none;border:none;font-size:20px;color:var(--text);cursor:pointer;padding:6px 16px;border-radius:8px;}
+.daynav button:active{background:var(--border);}
+.daynav button:disabled{opacity:0.3;}
+.daylabel{text-align:center;flex:1;}
+.daylabel .d{font-size:15px;font-weight:600;text-transform:capitalize;}
+.daylabel .n{font-size:12px;color:var(--text-2);}
+.today-btn{display:block;width:100%;text-align:center;background:none;border:1px dashed var(--border-strong);color:var(--text-2);font-size:13px;padding:8px;border-radius:10px;margin-bottom:16px;cursor:pointer;}
+
+/* ---------- item genérico (hábito / meta / tarefa) ---------- */
+.item{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;cursor:pointer;user-select:none;transition:border-color .15s,background .15s;}
+.item.done{border-color:var(--accent);background:var(--accent-bg);}
+.check{width:26px;height:26px;flex-shrink:0;border-radius:50%;border:2px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-size:15px;color:transparent;}
+.item.done .check{background:var(--accent);border-color:var(--accent);color:#fff;}
+.item-txt{flex:1;min-width:0;}
+.item-name{font-size:15px;font-weight:500;}
+.item.done .item-name.strike{text-decoration:line-through;}
+.item-meta{font-size:12px;color:var(--text-2);margin-top:1px;}
+.item.done .item-meta{color:var(--accent-text);}
+.item-action{background:none;border:none;color:var(--text-3);font-size:15px;cursor:pointer;padding:4px;flex-shrink:0;}
+.item.done .item-action{color:var(--accent-text);}
+
+.section-title{font-size:12px;font-weight:600;color:var(--text-2);margin:26px 0 10px;text-transform:uppercase;letter-spacing:.04em;}
+
+/* ---------- grid 30 dias ---------- */
+.grid-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;overflow-x:auto;}
+table{border-collapse:collapse;width:100%;font-size:11px;}
+th,td{padding:3px;text-align:center;}
+th{color:var(--text-3);font-weight:500;font-size:10px;}
+th.habit-col,td.habit-col{text-align:left;white-space:nowrap;padding-right:8px;}
+td.habit-col{font-size:12px;color:var(--text);}
+th.habit-col{font-size:11px;color:var(--text-2);}
+.cell{width:18px;height:18px;border-radius:4px;background:var(--border);margin:auto;cursor:pointer;}
+.cell.on{background:var(--accent);}
+.cell.today-col{outline:1.5px solid var(--text-2);outline-offset:1px;}
+
+/* ---------- formulário inline (adicionar) ---------- */
+.addform{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:14px;}
+.addform.hidden{display:none;}
+.addform .field{margin-bottom:8px;}
+.addform .row2{display:flex;gap:8px;}
+.addform .row2 .field{flex:1;}
+.field{display:block;width:100%;padding:11px 12px;border:1px solid var(--border-strong);border-radius:10px;background:var(--bg);color:var(--text);font-size:15px;}
+.field-label{font-size:12px;color:var(--text-2);margin:0 0 4px 2px;}
+.form-actions{display:flex;gap:8px;margin-top:4px;}
+
+/* ---------- botões ---------- */
+.btn{display:block;width:100%;padding:11px;border:none;border-radius:10px;font-size:15px;font-weight:500;cursor:pointer;margin-bottom:8px;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-ghost{background:none;border:1px solid var(--border-strong);color:var(--text);}
+.btn-google{background:var(--card);border:1px solid var(--border-strong);color:var(--text);display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-sm{flex:1;padding:10px;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;border:1px solid var(--border-strong);}
+.btn-sm.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+.btn-sm.ghost{background:none;color:var(--text-2);}
+
+/* ---------- estados vazios / placeholder ---------- */
+.empty{text-align:center;color:var(--text-2);font-size:14px;padding:30px 16px;border:1px dashed var(--border-strong);border-radius:var(--radius);}
+.placeholder{text-align:center;padding:60px 20px;color:var(--text-2);}
+.placeholder .pico{font-size:38px;margin-bottom:12px;}
+.placeholder .ptitle{font-size:17px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.placeholder .pdesc{font-size:14px;line-height:1.5;max-width:320px;margin:0 auto;}
+
+/* ---------- resumo financeiro ---------- */
+.money-neg{color:var(--danger);}
+.money-pos{color:var(--accent);}
+
+/* ---------- rodapé de conta ---------- */
+.accountbar{display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--text-3);}
+.linkbtn{background:none;border:none;color:var(--text-3);font-size:12px;text-decoration:underline;cursor:pointer;padding:0;}
+
+.loading{text-align:center;color:var(--text-2);padding:40px 0;font-size:14px;}
+
+/* ---------- login ---------- */
+.login{max-width:360px;margin:6vh auto 0;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;}
+.login h1{font-size:19px;margin:0 0 4px;}
+.login p.sub{margin-bottom:18px;}
+.divider{display:flex;align-items:center;gap:10px;color:var(--text-3);font-size:12px;margin:14px 0;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.msg{font-size:13px;padding:9px 11px;border-radius:9px;margin-bottom:10px;}
+.msg.err{background:var(--warn-bg);color:var(--warn);}
+.msg.ok{background:var(--accent-bg);color:var(--accent-text);}
+.gicon{width:16px;height:16px;}
+
+/* ---------- barra de abas fixa ---------- */
+.tabbar{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--border);
+  padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:50;}
+.tab{flex:1;background:none;border:none;cursor:pointer;padding:6px 0 4px;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-3);}
+.tab .tico{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;}
+.tab .tlabel{font-size:11px;}
+.tab.active{color:var(--accent);}
