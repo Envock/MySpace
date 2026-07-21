@@ -10,7 +10,7 @@ import { screenHeader, esc } from './ui.js';
 
 const DIAS_SEMANA = ['dom','seg','ter','qua','qui','sex','sáb'];
 const MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-const GRID_DAYS = 14; // janela da visão geral (últimos N dias)
+const GRID_DAYS = 6; // janela da visão geral (últimos N dias)
 
 let habitsList = [];   // [{id,name,start_date,end_date,archived}]
 let logs = {};          // { habitId: { 'YYYY-MM-DD': true } }
