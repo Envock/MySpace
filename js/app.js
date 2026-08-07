@@ -4,6 +4,7 @@ import { renderLogin, signOut } from './auth.js';
 import { screenHeader, esc } from './ui.js';
 import * as habits from './habits.js';
 import * as goals from './goals.js';
+import * as finance from './finance.js';
 
 const app = document.getElementById('app');
 let lastUserId = null;
@@ -38,6 +39,7 @@ async function showFor(session){
 function resetFeatureStates(){
   habits.resetHabitsState();
   goals.resetGoalsState();
+  finance.resetFinanceState();
 }
 
 /* ---------- estrutura persistente (tela + footer + abas) ---------- */
@@ -79,8 +81,7 @@ function renderActiveTab(){
   else if(state.currentTab === 'goals'){ goals.render(screen); }
   else if(state.currentTab === 'group'){ renderPlaceholder(screen, 'Grupo', '👥',
     'Aqui vão ficar as tarefas compartilhadas da casa — dá pra ver, por exemplo, se alguém já deu comida pro cachorro. Em construção.'); }
-  else if(state.currentTab === 'finance'){ renderPlaceholder(screen, 'Financeiro', '💰',
-    'Um resumo dos seus ganhos e das contas fixas a pagar. Em construção.'); }
+  else if(state.currentTab === 'finance'){ finance.render(screen); }
 }
 
 function renderPlaceholder(screen, title, ico, desc){
