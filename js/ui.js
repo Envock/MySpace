@@ -1,14 +1,16 @@
 /* Helpers de UI reutilizados por várias telas. */
 
 /* Cabeçalho padrão de uma tela: título, subtítulo opcional,
-   botão "+" opcional (à direita) e o selo de sincronização. */
-export function screenHeader(title, { subtitle = '', addBtnId = '' } = {}){
+   botões extras opcionais (html cru), botão "+" opcional (à direita)
+   e o selo de sincronização. */
+export function screenHeader(title, { subtitle = '', addBtnId = '', extra = '' } = {}){
   return ''
     + '<div class="topbar">'
     +   '<div><h1>' + esc(title) + '</h1>'
     +   (subtitle ? '<p class="sub">' + esc(subtitle) + '</p>' : '')
     +   '</div>'
     +   '<div class="head-right">'
+    +     extra
     +     (addBtnId ? '<button class="icon-btn" id="' + addBtnId + '" aria-label="Adicionar">+</button>' : '')
     +     '<div class="sync" id="syncPill">…</div>'
     +   '</div>'

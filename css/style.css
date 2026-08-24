@@ -118,10 +118,35 @@ th.habit-col{font-size:11px;color:var(--text-2);}
 .status-pill.pending{background:var(--warn-bg);color:var(--warn);}
 
 /* ---------- grupo ---------- */
+.group-switch{display:flex;gap:8px;overflow-x:auto;margin-bottom:16px;padding-bottom:2px;}
+.gchip{flex-shrink:0;padding:8px 14px;border-radius:20px;border:1px solid var(--border-strong);background:var(--card);color:var(--text-2);font-size:13px;cursor:pointer;white-space:nowrap;}
+.gchip.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.gchip.pending{border-style:dashed;}
+.gchip.add{color:var(--accent);font-weight:700;}
+.gchip .pill-pending{font-size:10px;opacity:.85;margin-left:2px;}
+
 .group-members{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:2px 14px;}
 .member-row{display:flex;align-items:center;gap:10px;padding:10px 0;font-size:14px;border-bottom:1px solid var(--border);}
 .member-row:last-child{border-bottom:none;}
 .member-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+.member-dot.pending{background:var(--warn);}
+.member-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+.role-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:3px 8px;border-radius:20px;flex-shrink:0;background:var(--border);color:var(--text-2);}
+.role-badge.role-owner{background:var(--accent);color:#fff;}
+.role-badge.role-admin{background:var(--accent-bg);color:var(--accent-text);}
+
+.freq-badge{display:inline-block;font-size:10px;font-weight:600;color:var(--text-2);background:var(--border);border-radius:20px;padding:1px 7px;margin-left:6px;vertical-align:middle;}
+.item.partial{border-color:var(--warn);background:var(--warn-bg);}
+.item.partial .check{border-color:var(--warn);color:var(--warn);}
+.check.frac{font-size:9px;font-weight:700;color:var(--text-2);}
+.item.done .check.frac{color:#fff;}
+.item.partial .check.frac{color:var(--warn);}
+
+.cell.multi-cell{background:transparent;display:flex;gap:2px;padding:0;}
+.cell.multi-cell span{flex:1;border-radius:2px;background:var(--border);}
+.cell.multi-cell span.on{background:var(--accent);}
+.cell.week-cell{width:100%;height:14px;border-radius:6px;}
 
 /* ---------- rodapé de conta ---------- */
 .accountbar{display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--text-3);}
