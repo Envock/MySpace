@@ -1,9 +1,10 @@
 import { supabase } from './supabaseClient.js';
-import { state, setUser, setTab, paintSync } from './state.js';
+import { state, setUser, setTab } from './state.js';
 import { renderLogin, signOut } from './auth.js';
-import { screenHeader, esc } from './ui.js';
+import { esc } from './ui.js';
 import * as habits from './habits.js';
 import * as goals from './goals.js';
+import * as group from './group.js';
 import * as finance from './finance.js';
 
 const app = document.getElementById('app');
@@ -39,6 +40,7 @@ async function showFor(session){
 function resetFeatureStates(){
   habits.resetHabitsState();
   goals.resetGoalsState();
+  group.resetGroupState();
   finance.resetFinanceState();
 }
 
@@ -79,19 +81,8 @@ function renderActiveTab(){
   const screen = document.getElementById('screen');
   if(state.currentTab === 'habits'){ habits.render(screen); }
   else if(state.currentTab === 'goals'){ goals.render(screen); }
-  else if(state.currentTab === 'group'){ renderPlaceholder(screen, 'Grupo', '👥',
-    'Aqui vão ficar as tarefas compartilhadas da casa — dá pra ver, por exemplo, se alguém já deu comida pro cachorro. Em construção.'); }
+  else if(state.currentTab === 'group'){ group.render(screen); }
   else if(state.currentTab === 'finance'){ finance.render(screen); }
-}
-
-function renderPlaceholder(screen, title, ico, desc){
-  screen.innerHTML = screenHeader(title)
-    + '<div class="placeholder">'
-    +   '<div class="pico">'+ico+'</div>'
-    +   '<div class="ptitle">Em breve</div>'
-    +   '<div class="pdesc">'+esc(desc)+'</div>'
-    + '</div>';
-  paintSync();
 }
 
 /* ---------- ciclo de auth ---------- */
