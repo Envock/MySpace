@@ -26,6 +26,7 @@ let loaded = false;
 let entryMode = null;      // null | 'create' | 'join'
 let newGroupOpen = true;
 let formState = null;      // null | 'new' | <taskId em edição>
+let formName = '';
 let formFreq = { type: 'daily', count: 2 };
 let view = 'tasks';        // 'tasks' | 'org'
 
@@ -353,12 +354,10 @@ function metaFor(task){
 
 function renderTaskForm(){
   const editing = formState !== 'new';
-  const t = editing ? tasks.find(x => x.id === formState) : null;
-  const name = t ? t.name : '';
 
   return '<div class="addform" id="taskForm">'
     + '<p class="field-label">Nome da tarefa</p>'
-    + '<input class="field" id="tName" value="'+esc(name)+'" placeholder="ex.: Dar comida pro cachorro">'
+    + '<input class="field" id="tName" value="'+esc(formName)+'" placeholder="ex.: Dar comida pro cachorro">'
     + '<p class="field-label">Frequência</p>'
     + '<div class="form-actions" style="margin-bottom:'+(formFreq.type==='multi_daily'?'8px':'12px')+';">'
     +   '<button class="btn-sm '+(formFreq.type==='daily'?'primary':'ghost')+'" data-freq="daily">1x ao dia</button>'
@@ -575,13 +574,13 @@ async function bump(task, date){
 
 function openTaskForm(id){
   formState = id;
-  if(id === 'new'){ formFreq = { type: 'daily', count: 2 }; }
-  else { const t = tasks.find(x => x.id === id); formFreq = { type: t.freq_type, count: t.freq_count }; }
+  if(id === 'new'){ formName = ''; formFreq = { type: 'daily', count: 2 }; }
+  else { const t = tasks.find(x => x.id === id); formName = t.name; formFreq = { type: t.freq_type, count: t.freq_count }; }
   paint();
 }
 
 async function saveTask(){
-  const name = document.getElementById('tName').value.trim();
+  const name = formName.trim();
   if(!name) return;
   const freq_type = formFreq.type;
   const freq_count = freq_type === 'multi_daily' ? Math.max(2, parseInt(document.getElementById('tFreqCount').value, 10) || 2) : 1;
@@ -626,9 +625,12 @@ function bindGroupEvents(canManage){
 
   const form = document.getElementById('taskForm');
   if(form){
+    document.getElementById('tName').oninput = (e) => { formName = e.target.value; };
     document.getElementById('tCancel').onclick = () => { formState = null; paint(); };
     document.getElementById('tSave').onclick = saveTask;
     const delBtn = document.getElementById('tDelete'); if(delBtn) delBtn.onclick = deleteTask;
+    const countEl = document.getElementById('tFreqCount');
+    if(countEl) countEl.oninput = (e) => { formFreq.count = parseInt(e.target.value, 10) || formFreq.count; };
     container.querySelectorAll('[data-freq]').forEach(btn => {
       btn.onclick = () => { formFreq.type = btn.getAttribute('data-freq'); if(formFreq.type === 'multi_daily' && formFreq.count < 2) formFreq.count = 2; paint(); };
     });
@@ -660,5 +662,5 @@ function bindGroupEvents(canManage){
 export function resetGroupState(){
   myMemberships = []; activeGroupId = null; members = []; tasks = []; logs = {};
   currentDate = todayDate(); loaded = false; entryMode = null; newGroupOpen = true;
-  formState = null; formFreq = { type:'daily', count:2 }; view = 'tasks';
+  formState = null; formName = ''; formFreq = { type:'daily', count:2 }; view = 'tasks';
 }
